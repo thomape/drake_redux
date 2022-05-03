@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import HomeComp from "@/components/HomeComp";
 import DrakeComp from "@/components/DrakeComp";
 import FermiComp from "@/components/FermiComp";
-import TwinsComp from "@/components/TwinsComp";
+import TwinComp from "@/components/TwinComp";
 import TravelComp from "@/components/TravelComp";
 
 Vue.use(VueRouter);
@@ -25,9 +25,9 @@ const routes = [
     component: FermiComp,
   },
   {
-    path: "/twins",
-    name: "twins",
-    component: TwinsComp,
+    path: "/twin",
+    name: "twin",
+    component: TwinComp,
   },
   {
     path: "/travel",

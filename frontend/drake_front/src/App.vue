@@ -7,7 +7,7 @@
         <v-tab to="home"> Home </v-tab>
         <v-tab to="drake"> Drake Equation </v-tab>
         <v-tab to="fermi"> Fermi's Paradox </v-tab>
-        <v-tab to="twins"> Twins Paradox </v-tab>
+        <v-tab to="twin"> Twin Paradox </v-tab>
         <v-tab to="travel"> Travel </v-tab>
       </v-tabs>
       <div>
@@ -30,7 +30,7 @@
                       <v-list-item-title> Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
-                  <v-divider class="my-2"></v-divider>
+                  <v-divider></v-divider>
                   <v-list-item link>
                     <v-list-item-content>
                       <v-list-item-title> Histroy </v-list-item-title>
@@ -44,7 +44,7 @@
                       <v-list-item-title> Drake Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
-                  <v-divider class="my-2"></v-divider>
+                  <v-divider></v-divider>
                   <v-list-item link>
                     <v-list-item-content>
                       <v-list-item-title> Drake Histroy </v-list-item-title>
@@ -58,7 +58,7 @@
                       <v-list-item-title>Fermi Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
-                  <v-divider class="my-2"></v-divider>
+                  <v-divider></v-divider>
                   <v-list-item link>
                     <v-list-item-content>
                       <v-list-item-title> Fermi Histroy </v-list-item-title>
@@ -66,16 +66,16 @@
                   </v-list-item>
                 </div>
                 <!-- Twins Section -->
-                <div v-if="twins">
+                <div v-if="twin">
                   <v-list-item link>
                     <v-list-item-content>
-                      <v-list-item-title> Twins Overview </v-list-item-title>
+                      <v-list-item-title> Twin Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
-                  <v-divider class="my-2"></v-divider>
+                  <v-divider></v-divider>
                   <v-list-item link>
                     <v-list-item-content>
-                      <v-list-item-title> Twins Histroy </v-list-item-title>
+                      <v-list-item-title> Twin Histroy </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                 </div>
@@ -86,7 +86,7 @@
                       <v-list-item-title> Travel Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
-                  <v-divider class="my-2"></v-divider>
+                  <v-divider></v-divider>
                   <v-list-item link>
                     <v-list-item-content>
                       <v-list-item-title> Travel Histroy </v-list-item-title>
@@ -143,8 +143,8 @@ export default {
     fermi() {
       return this.$route.name == "fermi";
     },
-    twins() {
-      return this.$route.name == "twins";
+    twin() {
+      return this.$route.name == "twin";
     },
     travel() {
       return this.$route.name == "travel";
@@ -153,4 +153,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.a1-h1 {
+  text-align: center;
+}
+.outer {
+  padding: 30px;
+}
+</style>

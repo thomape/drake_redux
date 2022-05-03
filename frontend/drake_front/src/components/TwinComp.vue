@@ -1,6 +1,6 @@
 <template>
   <div class="outer">
-    <h1 class="a1-h1">Fermi</h1>
+    <h1 class="a1-h1">Twin</h1>
   </div>
 </template>
 
