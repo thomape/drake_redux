@@ -1,23 +1,38 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomeComp from "@/components/HomeComp";
+import DrakeComp from "@/components/DrakeComp";
+import FermiComp from "@/components/FermiComp";
+import TwinsComp from "@/components/TwinsComp";
+import TravelComp from "@/components/TravelComp";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "home",
-    component: HomeView,
+    component: HomeComp,
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/drake",
+    name: "drake",
+    component: DrakeComp,
+  },
+  {
+    path: "/fermi",
+    name: "fermi",
+    component: FermiComp,
+  },
+  {
+    path: "/twins",
+    name: "twins",
+    component: TwinsComp,
+  },
+  {
+    path: "/travel",
+    name: "travel",
+    component: TravelComp,
   },
 ];
 
