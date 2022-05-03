@@ -10,6 +10,11 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/",
+    name: "root",
+    component: HomeComp,
+  },
+  {
     path: "/home",
     name: "home",
     component: HomeComp,
