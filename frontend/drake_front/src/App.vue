@@ -122,7 +122,9 @@
 
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
-              <router-view />
+              <transition name="moveInUp">
+                <router-view />
+              </transition>
             </v-sheet>
           </v-col>
         </v-row>
@@ -199,5 +201,41 @@ export default {
 }
 .outer {
   padding: 30px;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.moveInUp-enter-active {
+  animation: fadeIn 2s ease-in;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.moveInUp-leave-active {
+  animation: moveInUp 0.3s ease-in;
+}
+@keyframes moveInUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-400px);
+  }
 }
 </style>
