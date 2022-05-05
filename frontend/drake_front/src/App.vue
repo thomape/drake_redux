@@ -4,7 +4,7 @@
     <v-app-bar app>
       <v-app-bar-title>🚀Pulsar Creations🚀</v-app-bar-title>
       <v-tabs centered class="ml-n9" color="grey darken-1">
-        <v-tab to="home"> Home </v-tab>
+        <v-tab to="overview"> Overview </v-tab>
         <v-tab to="drake"> Drake Equation </v-tab>
         <v-tab to="fermi"> Fermi's Paradox </v-tab>
         <v-tab to="twin"> Twin Paradox </v-tab>
@@ -23,15 +23,21 @@
           <v-col cols="2">
             <v-sheet rounded="lg">
               <v-list color="transparent">
-                <!-- Home Section -->
-                <div v-if="home">
-                  <v-list-item link>
+                <!-- Overview Section -->
+                <div v-if="overview">
+                  <v-list-item link to="overview">
                     <v-list-item-content>
                       <v-list-item-title> Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
-                  <v-list-item link>
+                  <v-list-item link to="timeline">
+                    <v-list-item-content>
+                      <v-list-item-title> Timeline </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-divider></v-divider>
+                  <v-list-item link to="history">
                     <v-list-item-content>
                       <v-list-item-title> Histroy </v-list-item-title>
                     </v-list-item-content>
@@ -39,57 +45,74 @@
                 </div>
                 <!-- Drake Section -->
                 <div v-if="drake">
-                  <v-list-item link>
+                  <v-list-item link to="drake">
                     <v-list-item-content>
-                      <v-list-item-title> Drake Overview </v-list-item-title>
+                      <v-list-item-title> Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
-                  <v-list-item link>
+                  <v-list-item link to="drakeCalculator">
                     <v-list-item-content>
-                      <v-list-item-title> Drake Histroy </v-list-item-title>
+                      <v-list-item-title> Calculator </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-divider></v-divider>
+                  <v-list-item link to="drakeHistory">
+                    <v-list-item-content>
+                      <v-list-item-title> Histroy </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                 </div>
                 <!-- Fermi Section -->
                 <div v-if="fermi">
-                  <v-list-item link>
+                  <v-list-item link to="fermi">
                     <v-list-item-content>
-                      <v-list-item-title>Fermi Overview </v-list-item-title>
+                      <v-list-item-title> Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
-                  <v-list-item link>
+                  <v-list-item link to="fermiHistory">
                     <v-list-item-content>
-                      <v-list-item-title> Fermi Histroy </v-list-item-title>
+                      <v-list-item-title> Histroy </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                 </div>
                 <!-- Twins Section -->
                 <div v-if="twin">
-                  <v-list-item link>
+                  <v-list-item link to="twin">
                     <v-list-item-content>
-                      <v-list-item-title> Twin Overview </v-list-item-title>
+                      <v-list-item-title> Overview </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item link to="twinCalculator">
+                    <v-list-item-content>
+                      <v-list-item-title> Calculator </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
-                  <v-list-item link>
+                  <v-list-item link to="twinHistory">
                     <v-list-item-content>
-                      <v-list-item-title> Twin Histroy </v-list-item-title>
+                      <v-list-item-title> Histroy </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                 </div>
                 <!-- Travel Section -->
                 <div v-if="travel">
-                  <v-list-item link>
+                  <v-list-item link to="travel">
                     <v-list-item-content>
-                      <v-list-item-title> Travel Overview </v-list-item-title>
+                      <v-list-item-title> Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
-                  <v-list-item link>
+                  <v-list-item link to="travelCalculator">
                     <v-list-item-content>
-                      <v-list-item-title> Travel Histroy </v-list-item-title>
+                      <v-list-item-title> Calculator </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-divider></v-divider>
+                  <v-list-item link to="travelHistory">
+                    <v-list-item-content>
+                      <v-list-item-title> Histroy </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                 </div>
@@ -134,20 +157,37 @@ export default {
     }
   },
   computed: {
-    home() {
-      return this.$route.name == "home";
+    overview() {
+      return (
+        this.$route.name == "overview" ||
+        this.$route.name == "root" ||
+        this.$route.name == "timeline" ||
+        this.$route.name == "history"
+      );
     },
     drake() {
-      return this.$route.name == "drake";
+      return (
+        this.$route.name == "drake" ||
+        this.$route.name == "drakeCalculator" ||
+        this.$route.name == "drakeHistory"
+      );
     },
     fermi() {
-      return this.$route.name == "fermi";
+      return this.$route.name == "fermi" || this.$route.name == "fermiHistory";
     },
     twin() {
-      return this.$route.name == "twin";
+      return (
+        this.$route.name == "twin" ||
+        this.$route.name == "twinCalculator" ||
+        this.$route.name == "twinHistory"
+      );
     },
     travel() {
-      return this.$route.name == "travel";
+      return (
+        this.$route.name == "travel" ||
+        this.$route.name == "travelCalculator" ||
+        this.$route.name == "travelHistory"
+      );
     },
   },
 };
