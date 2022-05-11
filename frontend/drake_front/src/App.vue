@@ -1,24 +1,24 @@
 <template>
   <v-app id="inspire">
-    <!-- <v-main> -->
-    <v-app-bar app>
-      <v-app-bar-title>🚀Pulsar Creations🚀</v-app-bar-title>
-      <v-tabs centered class="ml-n9" color="grey darken-1">
-        <v-tab to="overview"> Overview </v-tab>
-        <v-tab to="drake"> Drake Equation </v-tab>
-        <v-tab to="fermi"> Fermi's Paradox </v-tab>
-        <v-tab to="twin"> Twin Paradox </v-tab>
-        <v-tab to="travel"> Travel </v-tab>
-      </v-tabs>
-      <div>
-        <v-btn icon @click="toggle_dark_mode">
-          <v-icon>mdi-theme-light-dark</v-icon>
-        </v-btn>
-      </div>
-    </v-app-bar>
+    <v-main>
+      <v-app-bar app>
+        <v-app-bar-title>🚀Pulsar Creations🚀</v-app-bar-title>
+        <v-tabs centered class="ml-n9" color="grey darken-">
+          <v-tab to="overview"> Overview </v-tab>
+          <v-tab to="drake"> Drake Equation </v-tab>
+          <v-tab to="fermi"> Fermi's Paradox </v-tab>
+          <v-tab to="twin"> Twin Paradox </v-tab>
+          <v-tab to="travel"> Travel </v-tab>
+        </v-tabs>
+        <div>
+          <v-btn icon x-large @click="toggleDarkmode">
+            <v-icon>mdi-theme-light-dark</v-icon>
+          </v-btn>
+        </div>
+      </v-app-bar>
 
-    <v-main class="grey darken-2">
-      <v-container>
+      <!-- <v-main class="grey darken-2"> -->
+      <v-container class="main">
         <v-row>
           <v-col cols="2">
             <v-sheet rounded="lg">
@@ -121,15 +121,25 @@
           </v-col>
 
           <v-col>
-            <v-sheet min-height="70vh" rounded="lg">
+            <v-sheet min-height="100vh" rounded="lg">
               <transition name="moveInUp">
                 <router-view />
               </transition>
             </v-sheet>
           </v-col>
         </v-row>
+        <div>
+          <v-btn icon @click="gotoTop">
+            <v-icon x-large>mdi-arrow-up-bold-circle-outline</v-icon>
+          </v-btn>
+        </div>
       </v-container>
     </v-main>
+    <v-footer class="footer">
+      <div>
+        <p>Copyright ©️ Thomas Errington. All rights reserved.</p>
+      </div>
+    </v-footer>
   </v-app>
 </template>
 
@@ -137,9 +147,12 @@
 export default {
   name: "App",
   methods: {
-    toggle_dark_mode: function () {
+    toggleDarkmode: function () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString());
+    },
+    gotoTop: function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
   },
   mounted() {
@@ -197,10 +210,13 @@ export default {
 
 <style>
 .a1-h1 {
-  text-align: center;
+  padding-left: 35px;
+  padding-bottom: 50px;
+  font-size: 3rem;
 }
 .outer {
   padding: 30px;
+  padding-right: 100px;
 }
 .moveInUp-enter-active {
   animation: fadeIn 2s ease-in;
@@ -226,5 +242,21 @@ export default {
   100% {
     transform: translateY(-400px);
   }
+}
+.overview-div {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.5rem;
+  max-width: 770px;
+  line-height: 2rem;
+  margin-left: 50px;
+  text-indent: 40px;
+}
+.overview-div div {
+  padding: 10px;
+}
+.footer {
+  font-style: italic;
+  text-align: center;
+  font-size: 12px;
 }
 </style>
