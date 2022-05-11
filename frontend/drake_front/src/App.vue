@@ -26,18 +26,27 @@
                 <!-- Overview Section -->
                 <div v-if="overview">
                   <v-list-item link to="overview">
+                    <v-list-item-icon>
+                      <v-icon>mdi-information-outline</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
                   <v-list-item link to="timeline">
+                    <v-list-item-icon>
+                      <v-icon>mdi-chart-timeline-variant-shimmer</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Timeline </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
                   <v-list-item link to="history">
+                    <v-list-item-icon>
+                      <v-icon>mdi-history</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Histroy </v-list-item-title>
                     </v-list-item-content>
@@ -46,18 +55,27 @@
                 <!-- Drake Section -->
                 <div v-if="drake">
                   <v-list-item link to="drake">
+                    <v-list-item-icon>
+                      <v-icon>mdi-information-outline</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
                   <v-list-item link to="drakeCalculator">
+                    <v-list-item-icon>
+                      <v-icon>mdi-calculator-variant-outline</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Calculator </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
                   <v-list-item link to="drakeHistory">
+                    <v-list-item-icon>
+                      <v-icon>mdi-history</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Histroy </v-list-item-title>
                     </v-list-item-content>
@@ -66,12 +84,18 @@
                 <!-- Fermi Section -->
                 <div v-if="fermi">
                   <v-list-item link to="fermi">
+                    <v-list-item-icon>
+                      <v-icon>mdi-information-outline</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
                   <v-list-item link to="fermiHistory">
+                    <v-list-item-icon>
+                      <v-icon>mdi-history</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Histroy </v-list-item-title>
                     </v-list-item-content>
@@ -80,17 +104,27 @@
                 <!-- Twins Section -->
                 <div v-if="twin">
                   <v-list-item link to="twin">
+                    <v-list-item-icon>
+                      <v-icon>mdi-information-outline</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
+                  <v-divider></v-divider>
                   <v-list-item link to="twinCalculator">
+                    <v-list-item-icon>
+                      <v-icon>mdi-calculator-variant-outline</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Calculator </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
                   <v-list-item link to="twinHistory">
+                    <v-list-item-icon>
+                      <v-icon>mdi-history</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Histroy </v-list-item-title>
                     </v-list-item-content>
@@ -99,18 +133,27 @@
                 <!-- Travel Section -->
                 <div v-if="travel">
                   <v-list-item link to="travel">
+                    <v-list-item-icon>
+                      <v-icon>mdi-information-outline</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Overview </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
                   <v-list-item link to="travelCalculator">
+                    <v-list-item-icon>
+                      <v-icon>mdi-calculator-variant-outline</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Calculator </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-divider></v-divider>
                   <v-list-item link to="travelHistory">
+                    <v-list-item-icon>
+                      <v-icon>mdi-history</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title> Histroy </v-list-item-title>
                     </v-list-item-content>
