@@ -16,9 +16,7 @@
           </v-btn>
         </div>
       </v-app-bar>
-
-      <!-- <v-main class="grey darken-2"> -->
-      <v-container class="main">
+      <v-container>
         <v-row>
           <v-col cols="2">
             <v-sheet rounded="lg">
@@ -162,25 +160,26 @@
               </v-list>
             </v-sheet>
           </v-col>
-
           <v-col>
             <v-sheet min-height="100vh" rounded="lg">
-              <transition name="moveInUp">
-                <router-view />
-              </transition>
+              <div>
+                <transition name="moveInUp">
+                  <router-view />
+                </transition>
+                <div class="returnTop">
+                  <v-btn icon @click="gotoTop">
+                    <v-icon x-large>mdi-arrow-up-bold-circle-outline</v-icon>
+                  </v-btn>
+                </div>
+              </div>
             </v-sheet>
           </v-col>
         </v-row>
-        <div>
-          <v-btn icon @click="gotoTop">
-            <v-icon x-large>mdi-arrow-up-bold-circle-outline</v-icon>
-          </v-btn>
-        </div>
       </v-container>
     </v-main>
     <v-footer class="footer">
       <div>
-        <p>Copyright ©️ Thomas Errington. All rights reserved.</p>
+        <p>©️ 2022 Thomas Errington. All rights reserved.</p>
       </div>
     </v-footer>
   </v-app>
@@ -252,17 +251,8 @@ export default {
 </script>
 
 <style>
-.a1-h1 {
-  padding-left: 35px;
-  padding-bottom: 50px;
-  font-size: 3rem;
-}
-.outer {
-  padding: 30px;
-  padding-right: 100px;
-}
 .moveInUp-enter-active {
-  animation: fadeIn 2s ease-in;
+  animation: fadeIn 0.5s ease-in;
 }
 @keyframes fadeIn {
   0% {
@@ -276,30 +266,37 @@ export default {
   }
 }
 .moveInUp-leave-active {
-  animation: moveInUp 0.3s ease-in;
+  animation: fadeOut 0.3s ease-out;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 100;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* .moveInUp-leave-active {
+  animation: moveInUp 0.5s ease-in;
 }
 @keyframes moveInUp {
   0% {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-400px);
+    transform: translateY(-1000px);
   }
-}
-.overview-div {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 1.5rem;
-  max-width: 770px;
-  line-height: 2rem;
-  margin-left: 50px;
-  text-indent: 40px;
-}
-.overview-div div {
-  padding: 10px;
-}
+} */
 .footer {
   font-style: italic;
   text-align: center;
   font-size: 12px;
+}
+.returnTop {
+  text-align: right;
+  padding: 20px;
 }
 </style>
