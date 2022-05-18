@@ -87,10 +87,6 @@
   padding-bottom: 50px;
   font-size: 3rem;
 }
-.outer {
-  padding: 30px;
-  padding-right: 100px;
-}
 .overview-div {
   font-family: "Times New Roman", Times, serif;
   font-size: 1.5rem;
@@ -106,6 +102,8 @@
   border: 3px solid Grey;
   display: flex;
   justify-content: center;
+  padding: 30px;
+  padding-right: 100px;
 }
 img {
   border-radius: 8px;
