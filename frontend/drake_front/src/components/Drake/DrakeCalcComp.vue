@@ -41,14 +41,16 @@
                       v-model="rstar"
                       :rules="rStarRules"
                       label="R*"
+                      ref="rstar"
                       required
                     ></v-text-field>
                   </v-col>
                   <v-col>
                     <v-text-field
                       v-model="fp"
-                      :rules="nameRules"
+                      :rules="fpRules"
                       label="fp"
+                      ref="fp"
                       required
                     ></v-text-field>
                   </v-col>
@@ -57,16 +59,18 @@
                   <v-col>
                     <v-text-field
                       v-model="ne"
-                      :rules="nameRules"
+                      :rules="neRules"
                       label="ne"
+                      ref="ne"
                       required
                     ></v-text-field>
                   </v-col>
                   <v-col>
                     <v-text-field
                       v-model="f1"
-                      :rules="nameRules"
+                      :rules="f1Rules"
                       label="f1"
+                      ref="f1"
                       required
                     ></v-text-field>
                   </v-col>
@@ -75,16 +79,18 @@
                   <v-col>
                     <v-text-field
                       v-model="fi"
-                      :rules="nameRules"
+                      :rules="fiRules"
                       label="fi"
+                      ref="fi"
                       required
                     ></v-text-field>
                   </v-col>
                   <v-col>
                     <v-text-field
                       v-model="fc"
-                      :rules="nameRules"
+                      :rules="fcRules"
                       label="fc"
+                      ref="fc"
                       required
                     ></v-text-field>
                   </v-col>
@@ -92,9 +98,10 @@
                 <v-row>
                   <v-col>
                     <v-text-field
-                      v-model="L"
-                      :rules="nameRules"
+                      v-model="ll"
+                      :rules="llRules"
                       label="L"
+                      ref="ll"
                       required
                     ></v-text-field>
                   </v-col>
@@ -117,6 +124,7 @@
             <v-container fluid class="drakeOption">
               <v-radio-group class="options" row>
                 <v-radio
+                  @click="original"
                   label="Original Values"
                   color="blue"
                   value="Original Values"
@@ -204,113 +212,6 @@
         >
       </div>
     </div>
-    <!-- <v-container fluid class="drakeOption">
-      <v-radio-group class="options" row>
-        <v-radio
-          label="Original Estimates"
-          color="blue"
-          value="Original Estimates"
-        >
-        </v-radio>
-        <v-radio
-          label="Current Estimates"
-          color="blue"
-          value="Current Estimates"
-        ></v-radio>
-        <v-radio
-          label="Guided Input"
-          color="blue"
-          value="Guided Input"
-        ></v-radio>
-        <v-radio
-          label="User Defined"
-          color="blue"
-          value="User Defined"
-        ></v-radio>
-      </v-radio-group>
-    </v-container> -->
-    <!-- <v-container class="userInput">
-      <v-form ref="form" v-model="valid" lazy-validation>
-        <v-row>
-          <v-col>
-            <v-text-field
-              v-model="rstar"
-              :rules="rStarRules"
-              label="R*"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field
-              v-model="fp"
-              :rules="nameRules"
-              label="fp"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-text-field
-              v-model="ne"
-              :rules="nameRules"
-              label="ne"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field
-              v-model="f1"
-              :rules="nameRules"
-              label="f1"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-text-field
-              v-model="fi"
-              :rules="nameRules"
-              label="fi"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field
-              v-model="fc"
-              :rules="nameRules"
-              label="fc"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-text-field
-              v-model="L"
-              :rules="nameRules"
-              label="L"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-btn
-              :disabled="!valid"
-              color="success"
-              class="mr-4"
-              @click="calculate"
-            >
-              Calculate
-            </v-btn>
-
-            <v-btn color="error" class="mr-4" @click="reset">
-              Reset
-            </v-btn></v-col
-          >
-        </v-row>
-      </v-form>
-    </v-container> -->
   </div>
 </template>
 
@@ -319,23 +220,96 @@ export default {
   data: () => ({
     valid: true,
     name: "",
-    nameRules: [
-      (v) => !!v || "Name is required",
-      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
     rStarRules: [
       (v) => !!v || "Rate of star formation",
-      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
-    answer: 1000,
+    fpRules: [
+      (v) => !!v || "Percent with planets",
+      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+    ],
+    neRules: [
+      (v) => !!v || "Number of goldie locks planets",
+      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+    ],
+    f1Rules: [
+      (v) => !!v || "Percent of life bearing planets",
+      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+    ],
+    fiRules: [
+      (v) => !!v || "Percent of  intelligent life bearing planets",
+      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+    ],
+    fcRules: [
+      (v) => !!v || "Percent that transmit information",
+      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+    ],
+    llRules: [
+      (v) => !!v || "Length of transimission time",
+      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+    ],
+    answer: 0,
+    originalEstLo: {
+      rstar: 1.0,
+      fp: 0.2,
+      ne: 1.0,
+      f1: 1.0,
+      fi: 1.0,
+      fc: 0.1,
+      ll: 1000.0,
+    },
+    originalEstHi: {
+      rstar: 1.0,
+      fp: 0.5,
+      ne: 5.0,
+      f1: 1.0,
+      fi: 1.0,
+      fc: 0.2,
+      ll: 100000000.0,
+    },
+    currentEstLo: {
+      rstar: 1.5,
+      fp: 0.00001,
+      ne: 0.00001,
+      f1: 0.00001,
+      fi: 0.000000001,
+      fc: 0.2,
+      ll: 304.0,
+    },
+    currentEstHi: {
+      rstar: 3.0,
+      fp: 1.0,
+      ne: 0.2,
+      f1: 0.13,
+      fi: 1.0,
+      fc: 0.2,
+      ll: 1000000000.0,
+    },
+    guidedEst: { rstar: 0, fp: 0, ne: 0, f1: 0, fi: 0, fc: 0, ll: 0 },
+    userEst: { rstar: 0, fp: 0, ne: 0, f1: 0, fi: 0, fc: 0, ll: 0 },
   }),
-
+  computed: {},
   methods: {
     calculate() {
       this.$refs.form.validate();
+
+      // let fp = this.$refs.fp.value;
+      // let ne = this.$refs.ne.value;
+      // let f1 = this.$refs.f1.value;
+      // let fi = this.$refs.fi.value;
+      // let fc = this.$refs.fc.value;
+      // let ll = this.$refs.ll.value;
+
+      this.answer = this.userEst.rstar;
+      //this.answer = rstar * fp * ne * f1 * fi * fc * ll;
     },
     reset() {
       this.$refs.form.reset();
+      this.answer = 0;
+    },
+    original() {
+      this.answer = "123";
+      this.$refs.form.rstar = "123";
     },
   },
 };
