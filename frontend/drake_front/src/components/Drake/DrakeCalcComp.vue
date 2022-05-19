@@ -147,7 +147,7 @@
                 class="hiLo"
                 :label="`${hiLo ? 'High' : 'Low'}`"
                 v-model="hiLo"
-                @click="hiLo"
+                @click="highLow"
               ></v-switch>
             </v-container>
           </v-col>
@@ -235,6 +235,8 @@ export default {
     llRules: [(v) => !!v || "Length of transimission time"],
     answer: 0,
     hiLo: false,
+    origCur: false,
+    guidUser: false,
     originalEstLo: {
       rstar: 1.0,
       fp: 0.2,
@@ -271,8 +273,24 @@ export default {
       fc: 0.2,
       ll: 1000000000.0,
     },
-    guidedEst: { rstar: 0, fp: 0, ne: 0, f1: 0, fi: 0, fc: 0, ll: 0 },
-    userEst: { rstar: 0, fp: 0, ne: 0, f1: 0, fi: 0, fc: 0, ll: 0 },
+    guidedEst: {
+      rstar: null,
+      fp: null,
+      ne: null,
+      f1: null,
+      fi: null,
+      fc: null,
+      ll: null,
+    },
+    userEst: {
+      rstar: null,
+      fp: null,
+      ne: null,
+      f1: null,
+      fi: null,
+      fc: null,
+      ll: null,
+    },
     emptyEst: {
       rstar: null,
       fp: null,
@@ -296,32 +314,74 @@ export default {
         this.emptyEst.ll;
     },
     reset() {
-      this.$refs.form.reset();
+      if (this.guidUser) {
+        this.$refs.form.reset();
+      } else {
+        if (this.origCur) {
+          if (this.hiLo) {
+            this.emptyEst = this.originalEstHi;
+          } else {
+            this.emptyEst = this.originalEstLo;
+          }
+        } else {
+          if (this.hiLo) {
+            this.emptyEst = this.currentEstHi;
+          } else {
+            this.emptyEst = this.currentEstLo;
+          }
+        }
+      }
       this.answer = 0;
     },
     original() {
+      this.answer = 0;
+      this.guidUser = false;
+      this.origCur = true;
       if (this.hiLo) {
         this.emptyEst = this.originalEstHi;
-        this.answer = 1;
       } else {
         this.emptyEst = this.originalEstLo;
-        this.answer = 2;
       }
+      this.calculate();
     },
     current() {
+      this.answer = 0;
+      this.origCur = false;
+      this.guidUser = false;
       if (this.hiLo) {
         this.emptyEst = this.currentEstHi;
-        this.answer = 3;
       } else {
         this.emptyEst = this.currentEstLo;
-        this.answer = 4;
       }
+      this.calculate();
     },
     guided() {
+      this.answer = 0;
+      this.guidUser = true;
       this.emptyEst = this.guidedEst;
     },
     user() {
-      this.userEst.rstar = this.this.emptyEst = this.userEst;
+      this.answer = 0;
+      this.guidUser = true;
+      this.emptyEst = this.userEst;
+    },
+    highLow() {
+      this.answer = 0;
+      if (this.origCur) {
+        if (this.hiLo) {
+          this.emptyEst = this.originalEstHi;
+        } else {
+          this.emptyEst = this.originalEstLo;
+        }
+        this.calculate();
+      } else {
+        if (this.hiLo) {
+          this.emptyEst = this.currentEstHi;
+        } else {
+          this.emptyEst = this.currentEstLo;
+        }
+        this.calculate();
+      }
     },
   },
 };
