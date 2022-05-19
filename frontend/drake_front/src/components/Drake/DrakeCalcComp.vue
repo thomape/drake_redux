@@ -38,19 +38,17 @@
                 <v-row>
                   <v-col>
                     <v-text-field
-                      v-model="rstar"
+                      v-model="emptyEst.rstar"
                       :rules="rStarRules"
                       label="R*"
-                      ref="rstar"
                       required
                     ></v-text-field>
                   </v-col>
                   <v-col>
                     <v-text-field
-                      v-model="fp"
+                      v-model="emptyEst.fp"
                       :rules="fpRules"
                       label="fp"
-                      ref="fp"
                       required
                     ></v-text-field>
                   </v-col>
@@ -58,19 +56,17 @@
                 <v-row>
                   <v-col>
                     <v-text-field
-                      v-model="ne"
+                      v-model="emptyEst.ne"
                       :rules="neRules"
                       label="ne"
-                      ref="ne"
                       required
                     ></v-text-field>
                   </v-col>
                   <v-col>
                     <v-text-field
-                      v-model="f1"
+                      v-model="emptyEst.f1"
                       :rules="f1Rules"
                       label="f1"
-                      ref="f1"
                       required
                     ></v-text-field>
                   </v-col>
@@ -78,19 +74,17 @@
                 <v-row>
                   <v-col>
                     <v-text-field
-                      v-model="fi"
+                      v-model="emptyEst.fi"
                       :rules="fiRules"
                       label="fi"
-                      ref="fi"
                       required
                     ></v-text-field>
                   </v-col>
                   <v-col>
                     <v-text-field
-                      v-model="fc"
+                      v-model="emptyEst.fc"
                       :rules="fcRules"
                       label="fc"
-                      ref="fc"
                       required
                     ></v-text-field>
                   </v-col>
@@ -98,10 +92,9 @@
                 <v-row>
                   <v-col>
                     <v-text-field
-                      v-model="ll"
+                      v-model="emptyEst.ll"
                       :rules="llRules"
                       label="L"
-                      ref="ll"
                       required
                     ></v-text-field>
                   </v-col>
@@ -110,11 +103,12 @@
                       :disabled="!valid"
                       color="success"
                       class="mr-4"
+                      id="calc"
                       @click="calculate"
                     >
                       Calculate
                     </v-btn>
-                    <v-btn color="error" class="mr-4" @click="reset">
+                    <v-btn color="error" class="mr-4" id="reset" @click="reset">
                       Reset
                     </v-btn>
                   </v-col>
@@ -131,21 +125,30 @@
                 >
                 </v-radio>
                 <v-radio
+                  @click="current"
                   label="Current Values"
                   color="blue"
                   value="Current Values"
                 ></v-radio>
                 <v-radio
+                  @click="guided"
                   label="Guided Input"
                   color="blue"
                   value="Guided Input"
                 ></v-radio>
                 <v-radio
+                  @click="user"
                   label="User Defined"
                   color="blue"
                   value="User Defined"
                 ></v-radio>
               </v-radio-group>
+              <v-switch
+                class="hiLo"
+                :label="`${hiLo ? 'High' : 'Low'}`"
+                v-model="hiLo"
+                @click="hiLo"
+              ></v-switch>
             </v-container>
           </v-col>
         </v-row>
@@ -224,31 +227,14 @@ export default {
       (v) => !!v || "Rate of star formation",
       //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
-    fpRules: [
-      (v) => !!v || "Percent with planets",
-      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
-    neRules: [
-      (v) => !!v || "Number of goldie locks planets",
-      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
-    f1Rules: [
-      (v) => !!v || "Percent of life bearing planets",
-      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
-    fiRules: [
-      (v) => !!v || "Percent of  intelligent life bearing planets",
-      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
-    fcRules: [
-      (v) => !!v || "Percent that transmit information",
-      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
-    llRules: [
-      (v) => !!v || "Length of transimission time",
-      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
+    fpRules: [(v) => !!v || "Percent with planets"],
+    neRules: [(v) => !!v || "Number of goldie locks planets"],
+    f1Rules: [(v) => !!v || "Percent of life bearing planets"],
+    fiRules: [(v) => !!v || "Percent of  intelligent life bearing planets"],
+    fcRules: [(v) => !!v || "Percent that transmit information"],
+    llRules: [(v) => !!v || "Length of transimission time"],
     answer: 0,
+    hiLo: false,
     originalEstLo: {
       rstar: 1.0,
       fp: 0.2,
@@ -287,29 +273,55 @@ export default {
     },
     guidedEst: { rstar: 0, fp: 0, ne: 0, f1: 0, fi: 0, fc: 0, ll: 0 },
     userEst: { rstar: 0, fp: 0, ne: 0, f1: 0, fi: 0, fc: 0, ll: 0 },
+    emptyEst: {
+      rstar: null,
+      fp: null,
+      ne: null,
+      f1: null,
+      fi: null,
+      fc: null,
+      ll: null,
+    },
   }),
-  computed: {},
   methods: {
     calculate() {
       this.$refs.form.validate();
-
-      // let fp = this.$refs.fp.value;
-      // let ne = this.$refs.ne.value;
-      // let f1 = this.$refs.f1.value;
-      // let fi = this.$refs.fi.value;
-      // let fc = this.$refs.fc.value;
-      // let ll = this.$refs.ll.value;
-
-      this.answer = this.userEst.rstar;
-      //this.answer = rstar * fp * ne * f1 * fi * fc * ll;
+      this.answer =
+        this.emptyEst.rstar *
+        this.emptyEst.fp *
+        this.emptyEst.ne *
+        this.emptyEst.f1 *
+        this.emptyEst.fi *
+        this.emptyEst.fc *
+        this.emptyEst.ll;
     },
     reset() {
       this.$refs.form.reset();
       this.answer = 0;
     },
     original() {
-      this.answer = "123";
-      this.$refs.form.rstar = "123";
+      if (this.hiLo) {
+        this.emptyEst = this.originalEstHi;
+        this.answer = 1;
+      } else {
+        this.emptyEst = this.originalEstLo;
+        this.answer = 2;
+      }
+    },
+    current() {
+      if (this.hiLo) {
+        this.emptyEst = this.currentEstHi;
+        this.answer = 3;
+      } else {
+        this.emptyEst = this.currentEstLo;
+        this.answer = 4;
+      }
+    },
+    guided() {
+      this.emptyEst = this.guidedEst;
+    },
+    user() {
+      this.userEst.rstar = this.this.emptyEst = this.userEst;
     },
   },
 };
@@ -353,10 +365,15 @@ a:visited {
   text-decoration: none;
   display: inline-block;
 }
-
 a:hover,
 a:active {
   background-color: rgb(112, 112, 112);
+  font-size: 112%;
+}
+#calc:hover {
+  font-size: 112%;
+}
+#reset:hover {
   font-size: 112%;
 }
 .explaination {
@@ -371,15 +388,17 @@ a:active {
   border: 1px solid grey;
   margin-bottom: 25px;
 }
-
 #answerRow {
   height: 100px;
   border: 5px solid gray;
   margin: 20px;
 }
 #answerRow p {
-  font-size: 55px;
+  font-size: 45px;
   text-align: center;
   padding-top: 27px;
+}
+.hiLo {
+  padding-left: 25px;
 }
 </style>
