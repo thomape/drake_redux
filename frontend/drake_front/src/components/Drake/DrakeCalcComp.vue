@@ -4,32 +4,6 @@
       <v-container>
         <v-row>
           <v-col>
-            <p>
-              The Drake equation is comprised seven varibles. Each varible has a
-              useful range which allows for semi-realistic predictions. The
-              original estimates and the current estimates vary greatly and that
-              is simply because some of the varibles which were purely
-              assumptions when the equation was concienved, have now been
-              changed by sceince.
-            </p>
-            <p>
-              The calculator has a few options to demostrate the aformentioned
-              varibility. It also provideds a guided experience which will help
-              the user understand the ranges that make sense supported by our
-              current sceintific knowledge. The user-defined option will allow
-              for any input, ambitious or otherwise.
-            </p>
-            <p>
-              It should also be mentioned that the Drake equation was never
-              intended to be used for sceintific research purposes, but rather
-              as and ice breaker for the first SETI convention meeting. Its
-              intial purpose was simply designed as an exercise to escape
-              personal ego or beliefs and stimulate productive conversation.
-              Until science has narrowed in on all of these varibles the
-              equation's initial purpose should still be observed.
-            </p>
-          </v-col>
-          <v-col>
             <v-container class="userInput">
               <v-form ref="form" v-model="valid" lazy-validation>
                 <v-row id="answerRow">
@@ -116,7 +90,14 @@
               </v-form>
             </v-container>
             <v-container fluid class="drakeOption">
-              <v-radio-group class="options" row>
+              <v-radio-group class="options" row mandatory="true">
+                <v-radio
+                  @click="user"
+                  label="User Defined"
+                  color="blue"
+                  v-model="picked"
+                  value="User Defined"
+                ></v-radio>
                 <v-radio
                   @click="original"
                   label="Original Values"
@@ -136,12 +117,6 @@
                   color="blue"
                   value="Guided Input"
                 ></v-radio>
-                <v-radio
-                  @click="user"
-                  label="User Defined"
-                  color="blue"
-                  value="User Defined"
-                ></v-radio>
               </v-radio-group>
               <v-switch
                 class="hiLo"
@@ -151,6 +126,7 @@
               ></v-switch>
             </v-container>
           </v-col>
+          <v-col><div>hi</div></v-col>
         </v-row>
       </v-container>
       <div>
@@ -236,7 +212,9 @@ export default {
     answer: 0,
     hiLo: false,
     origCur: false,
-    guidUser: false,
+    orig: false,
+    guidUser: true,
+    picked: "User Defined",
     originalEstLo: {
       rstar: 1.0,
       fp: 0.2,
@@ -317,10 +295,11 @@ export default {
       if (this.guidUser) {
         this.$refs.form.reset();
       } else {
-        if (this.origCur) {
+        if (this.origCur && this.orig) {
           if (this.hiLo) {
             this.emptyEst = this.originalEstHi;
           } else {
+            this.answer = this.emptyEst.rstar;
             this.emptyEst = this.originalEstLo;
           }
         } else {
@@ -331,11 +310,12 @@ export default {
           }
         }
       }
-      this.answer = 0;
+      //this.answer = 0;
     },
     original() {
       this.answer = 0;
       this.guidUser = false;
+      this.orig = true;
       this.origCur = true;
       if (this.hiLo) {
         this.emptyEst = this.originalEstHi;
@@ -346,8 +326,9 @@ export default {
     },
     current() {
       this.answer = 0;
-      this.origCur = false;
+      this.origCur = true;
       this.guidUser = false;
+      this.orig = false;
       if (this.hiLo) {
         this.emptyEst = this.currentEstHi;
       } else {
@@ -358,23 +339,25 @@ export default {
     guided() {
       this.answer = 0;
       this.guidUser = true;
+      this.orig = false;
       this.emptyEst = this.guidedEst;
     },
     user() {
       this.answer = 0;
       this.guidUser = true;
+      this.orig = false;
       this.emptyEst = this.userEst;
     },
     highLow() {
       this.answer = 0;
-      if (this.origCur) {
+      if (this.origCur && this.orig && !this.guidUser) {
         if (this.hiLo) {
           this.emptyEst = this.originalEstHi;
         } else {
           this.emptyEst = this.originalEstLo;
         }
         this.calculate();
-      } else {
+      } else if (this.origCur && !this.orig && !this.guidUser) {
         if (this.hiLo) {
           this.emptyEst = this.currentEstHi;
         } else {
