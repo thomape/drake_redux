@@ -123,10 +123,11 @@
                 :label="`${hiLo ? 'High' : 'Low'}`"
                 v-model="hiLo"
                 @click="highLow"
+                :disabled="isDisabled"
               ></v-switch>
             </v-container>
           </v-col>
-          <v-col><div>hi</div></v-col>
+          <v-col><div id="aliens">hi</div></v-col>
         </v-row>
       </v-container>
       <div>
@@ -279,6 +280,11 @@ export default {
       ll: null,
     },
   }),
+  computed: {
+    isDisabled: function () {
+      return this.guidUser;
+    },
+  },
   methods: {
     calculate() {
       this.$refs.form.validate();
@@ -297,16 +303,19 @@ export default {
       } else {
         if (this.origCur && this.orig) {
           if (this.hiLo) {
-            this.emptyEst = this.originalEstHi;
+            this.emptyEst = { ...this.originalEstHi };
+            this.calculate();
           } else {
-            this.answer = this.emptyEst.rstar;
-            this.emptyEst = this.originalEstLo;
+            this.emptyEst = { ...this.originalEstLo };
+            this.calculate();
           }
         } else {
           if (this.hiLo) {
-            this.emptyEst = this.currentEstHi;
+            this.emptyEst = { ...this.currentEstHi };
+            this.calculate();
           } else {
-            this.emptyEst = this.currentEstLo;
+            this.emptyEst = { ...this.currentEstLo };
+            this.calculate();
           }
         }
       }
@@ -318,9 +327,9 @@ export default {
       this.orig = true;
       this.origCur = true;
       if (this.hiLo) {
-        this.emptyEst = this.originalEstHi;
+        this.emptyEst = { ...this.originalEstHi };
       } else {
-        this.emptyEst = this.originalEstLo;
+        this.emptyEst = { ...this.originalEstLo };
       }
       this.calculate();
     },
@@ -330,9 +339,9 @@ export default {
       this.guidUser = false;
       this.orig = false;
       if (this.hiLo) {
-        this.emptyEst = this.currentEstHi;
+        this.emptyEst = { ...this.currentEstHi };
       } else {
-        this.emptyEst = this.currentEstLo;
+        this.emptyEst = { ...this.currentEstLo };
       }
       this.calculate();
     },
@@ -340,28 +349,28 @@ export default {
       this.answer = 0;
       this.guidUser = true;
       this.orig = false;
-      this.emptyEst = this.guidedEst;
+      this.emptyEst = { ...this.guidedEst };
     },
     user() {
       this.answer = 0;
       this.guidUser = true;
       this.orig = false;
-      this.emptyEst = this.userEst;
+      this.emptyEst = { ...this.userEst };
     },
     highLow() {
       this.answer = 0;
       if (this.origCur && this.orig && !this.guidUser) {
         if (this.hiLo) {
-          this.emptyEst = this.originalEstHi;
+          this.emptyEst = { ...this.originalEstHi };
         } else {
-          this.emptyEst = this.originalEstLo;
+          this.emptyEst = { ...this.originalEstLo };
         }
         this.calculate();
       } else if (this.origCur && !this.orig && !this.guidUser) {
         if (this.hiLo) {
-          this.emptyEst = this.currentEstHi;
+          this.emptyEst = { ...this.currentEstHi };
         } else {
-          this.emptyEst = this.currentEstLo;
+          this.emptyEst = { ...this.currentEstLo };
         }
         this.calculate();
       }
@@ -442,6 +451,11 @@ a:active {
   padding-top: 27px;
 }
 .hiLo {
-  padding-left: 25px;
+  padding-left: 250px;
+}
+#aliens {
+  max-width: 870px;
+  height: 714px;
+  border: 1px solid gray;
 }
 </style>
