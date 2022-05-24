@@ -5,7 +5,7 @@
         <h1 class="a1-h1">Astronomy or Philosophy?</h1>
       </div>
       <div class="overview-div">
-        <div id="overview">
+        <div class="overview">
           <p>
             Within the astronomical community there are many interesting
             scientific equations that help humankind better understand the space
@@ -18,7 +18,7 @@
             philosophy. This site is dedicated to those experiments.
           </p>
         </div>
-        <div id="drake">
+        <div class="drake">
           <p>
             The Drake equation, while not a strong scientific model to stand on,
             gives use the ability to imagine about the possibilities that may
@@ -29,7 +29,7 @@
           </p>
           <img src="@/assets/drake1.jpg" />
         </div>
-        <div id="fermi">
+        <div class="fermi">
           <p>
             Fermi’s paradox doesn’t include any type of mathematical calculation
             or scientific experiments, but it does compliment the Drake equation
@@ -40,7 +40,7 @@
           </p>
           <img src="@/assets/paradox.jpeg" />
         </div>
-        <div id="twin">
+        <div class="twin">
           <p>
             The Twin paradox has a great deal of math and science surrounding
             it. However, the concept is particularly difficult to relate to for
@@ -53,7 +53,7 @@
           </p>
           <img src="@/assets/twin.jpg" />
         </div>
-        <div id="travel">
+        <div class="travel">
           <div>
             <p>
               The last section isn’t so much about science and math, but a
@@ -108,17 +108,17 @@
 img {
   border-radius: 8px;
 }
-#drake img {
+.drake img {
   height: 400px;
   filter: grayscale();
 }
-#fermi img {
+.fermi img {
   height: 300px;
 }
-#twin img {
+.twin img {
   height: 400px;
 }
-#travel img {
+.travel img {
   height: 400px;
   justify-content: right;
 }

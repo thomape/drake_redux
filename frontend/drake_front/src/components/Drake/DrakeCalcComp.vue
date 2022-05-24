@@ -6,7 +6,7 @@
           <v-col>
             <v-container class="userInput">
               <v-form ref="form" v-model="valid" lazy-validation>
-                <v-row id="answerRow">
+                <v-row class="answerRow">
                   <p>{{ answer }}</p>
                 </v-row>
                 <v-row>
@@ -127,18 +127,22 @@
               ></v-switch>
             </v-container>
           </v-col>
-          <v-col><div id="aliens">hi</div></v-col>
+          <v-col
+            ><div class="aliens">
+              <p>{{ aliens }}</p>
+            </div></v-col
+          >
         </v-row>
       </v-container>
       <div>
-        <p id="equation">
+        <p class="equation">
           N = R<sub>*</sub> · f<sub>p</sub> · n<sub>e</sub> · f<sub>1</sub> ·
           f<sub>i</sub> · f<sub>c</sub> · L
         </p>
       </div>
-      <div id="equationInfo">
+      <div class="equationInfo">
         <v-list>
-          <v-list-item id="rstarText">
+          <v-list-item class="rstarText">
             N - The number of civilizations in the Milky Way galaxy whose
             electromagnetic emissions are detectable.
           </v-list-item>
@@ -202,7 +206,7 @@ export default {
     name: "",
     rStarRules: [
       (v) => !!v || "Rate of star formation",
-      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
     fpRules: [(v) => !!v || "Percent with planets"],
     neRules: [(v) => !!v || "Number of goldie locks planets"],
@@ -216,6 +220,7 @@ export default {
     orig: false,
     guidUser: true,
     picked: "User Defined",
+    aliens: "",
     originalEstLo: {
       rstar: 1.0,
       fp: 0.2,
@@ -286,6 +291,71 @@ export default {
     },
   },
   methods: {
+    numberToString: function (num) {
+      let numStr = String(num);
+
+      if (Math.abs(num) < 1.0) {
+        let e = parseInt(num.toString().split("e-")[1]);
+        if (e) {
+          let negative = num < 0;
+          if (negative) num *= -1;
+          num *= Math.pow(10, e - 1);
+          numStr = "0." + new Array(e).join("0") + num.toString().substring(2);
+          if (negative) numStr = "-" + numStr;
+        }
+      } else {
+        let e = parseInt(num.toString().split("+")[1]);
+        if (e > 20) {
+          e -= 20;
+          num /= Math.pow(10, e);
+          numStr = num.toString() + new Array(e + 1).join("0");
+        }
+      }
+
+      return numStr;
+    },
+    displayNum: function (number) {
+      number = this.numberToString(number);
+      let abbreviation = [
+        " Thousand",
+        " Million",
+        " Trillion",
+        " Quadrillion",
+        " Quintillion",
+        " Sextillion",
+        " Septillion",
+        " Octillion",
+        " Nonillion",
+        " Decillion",
+        " Undecillion",
+      ];
+      // let zeros = [
+      //   "three zeros",
+      //   "nine zeros",
+      //   "twelve zeros",
+      //   "fifteen zeros",
+      //   "eighteen zeros",
+      // ];
+
+      for (let i = abbreviation.length - 1; i >= 0; i--) {
+        let size = Math.pow(10, (i + 1) * 3);
+
+        if (size <= number) {
+          number = Math.round((number * 100) / size) / 100;
+
+          if (number == 1000 && i < abbreviation.length - 1) {
+            number = 1;
+            i++;
+          }
+
+          number += abbreviation[i];
+          number += " possible suitable planets!";
+          break;
+        }
+      }
+
+      return number;
+    },
     calculate() {
       this.$refs.form.validate();
       this.answer =
@@ -296,6 +366,8 @@ export default {
         this.emptyEst.fi *
         this.emptyEst.fc *
         this.emptyEst.ll;
+
+      this.aliens = this.displayNum(this.answer);
     },
     reset() {
       if (this.guidUser) {
@@ -319,7 +391,6 @@ export default {
           }
         }
       }
-      //this.answer = 0;
     },
     original() {
       this.answer = 0;
@@ -383,7 +454,7 @@ export default {
 .drakeOption {
   border: 1px solid gray;
 }
-#equation {
+.equation {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 54px;
   text-align: center;
@@ -405,7 +476,7 @@ export default {
 .outer {
   border: 3px solid Grey;
 }
-#equationInfo {
+.equationInfo {
   border: 1px solid grey;
 }
 a:link,
@@ -440,12 +511,12 @@ a:active {
   border: 1px solid grey;
   margin-bottom: 25px;
 }
-#answerRow {
+.answerRow {
   height: 100px;
   border: 5px solid gray;
   margin: 20px;
 }
-#answerRow p {
+.answerRow p {
   font-size: 45px;
   text-align: center;
   padding-top: 27px;
@@ -453,9 +524,13 @@ a:active {
 .hiLo {
   padding-left: 250px;
 }
-#aliens {
+.aliens {
   max-width: 870px;
   height: 714px;
   border: 1px solid gray;
+}
+
+.aliens p {
+  text-align: center;
 }
 </style>
