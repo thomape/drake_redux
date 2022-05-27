@@ -206,7 +206,7 @@ export default {
     name: "",
     rStarRules: [
       (v) => !!v || "Rate of star formation",
-      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      //(v) => (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
     fpRules: [(v) => !!v || "Percent with planets"],
     neRules: [(v) => !!v || "Number of goldie locks planets"],
